@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Q-Secure | Intelligent Email Security</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+    <div class="brand">
+        <div class="brand-logo">
+            <svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 5 L90 22 V52 C90 78 72 96 50 105 C28 96 10 78 10 52 V22 Z"
+                      fill="#102b50" stroke="#38bdf8" stroke-width="4"/>
+                <path d="M50 18 L78 30 V52 C78 70 66 83 50 91 C34 83 22 70 22 52 V30 Z"
+                      fill="none" stroke="#60a5fa" stroke-width="2"/>
+                <text x="50" y="64" text-anchor="middle"
+                      font-size="43" font-weight="bold" fill="#ffffff">Q</text>
+                <path d="M35 70 L50 82 L65 70"
+                      fill="none" stroke="#38bdf8" stroke-width="3"/>
+            </svg>
+        </div>
+
+        <div class="brand-text">
+            <h2>Q-Secure</h2>
+            <p class="subtitle">EMAIL INTELLIGENCE</p>
+        </div>
+    </div>
+
+    <nav>
+        <a class="active" href="#scanner">Email Scanner</a>
+        <a href="#emlScanner">EML File Scanner</a>
+        <a href="#qrScanner">QR Code Scanner</a>
+        <a href="#dnsScanner">DNS Authentication</a>
+        <a href="#results">Threat Analysis</a>
+        <a href="#quantum">Quantum Security</a>
+        <a href="#history">Threat History</a>
+        <a href="#admin">Admin Dashboard</a>
+        <a href="#settings">Settings</a>
+        <a href="#bulkScanner">Bulk Email Scanner</a>
+    </nav>
+
+    <div class="sidebar-bottom">
+        Cybersecurity Insight Engine
+    </div>
+
+</div>
+
+<button class="menu-toggle" id="menuToggle"
+        onclick="toggleSidebar()" aria-label="Toggle navigation">
+    ☰
+</button>
+
+<!-- MAIN CONTENT -->
+<main>
+
+<!-- HEADER -->
+<header class="dashboard-header">
+    <div class="welcome-content">
+        <p class="eyebrow">SECURITY OPERATIONS CENTER</p>
+
+        <h1>Welcome to Q-Secure</h1>
+
+        <p class="muted">
+            Your intelligent email security and threat analysis platform.
+        </p>
+
+        <div class="system-status">
+            <span class="status-dot"></span>
+            Security Monitoring Active
+        </div>
+    </div>
+
+    <div class="header-actions">
+        <button id="logoutButton" class="logout-btn" type="button">
+            Logout ↗
+        </button>
+
+        <button type="button"
+                onclick="showSection('domainManagement')">
+            Domain Management
+        </button>
+    </div>
+</header>
+
+<!-- DASHBOARD STATISTICS -->
+<section class="stats">
+
+    <div class="stat-card">
+        <div class="stat-icon">⚙️</div>
+        <span>Analysis Engine</span>
+        <h2>ACTIVE</h2>
+        <p class="stat-description">Email threat analysis is operational</p>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">🛡️</div>
+        <span>Detection Modules</span>
+        <h2>06</h2>
+        <p class="stat-description">Core security modules configured</p>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">⚛️</div>
+        <span>Quantum Simulation</span>
+        <h2>READY</h2>
+        <p class="stat-description">Quantum risk assessment available</p>
+    </div>
+
+</section>
+
+<!-- EMAIL SCANNER -->
+<section class="panel email-scanner-panel" id="scanner">
+
+    <div class="scanner-heading">
+        <div>
+            <p class="eyebrow">EMAIL SECURITY MODULE</p>
+            <h2>📩 Email Threat Analyzer</h2>
+            <p class="muted">
+                Scan suspicious emails and identify potential security threats.
+            </p>
+        </div>
+
+        <div class="scanner-status">
+            <span class="status-dot"></span>
+            Engine Ready
+        </div>
+    </div>
+
+    <div class="scanner-info">
+        <span>🛡️ Phishing Detection</span>
+        <span>🔗 URL Analysis</span>
+        <span>🔐 Authentication Checks</span>
+    </div>
+
+    <label for="emailInput" class="scanner-label">
+        Email Content / Raw Headers
+    </label>
+
+    <p class="muted scanner-hint">
+        Paste the complete email body or raw email headers below.
+    </p>
+
+    <textarea
+        id="emailInput"
+        placeholder="Paste your email content here...
+
+Example:
+
+From: support@example.com
+Subject: Urgent account verification
+
+Your account is suspended.
+Click here to verify your password..."
+    ></textarea>
+
+    <div class="scanner-footer">
+        <p class="muted">
+            💡 Include email headers for better authentication analysis.
+        </p>
+
+        <div class="actions">
+            <button id="analyzeBtn" onclick="analyzeEmail()">
+                Analyze Email →
+            </button>
+
+            <button class="secondary" onclick="clearEmail()">
+                Clear
+            </button>
+        </div>
+    </div>
+
+    <p id="message" class="muted"></p>
+
+</section>
+
+<!-- EML FILE SCANNER -->
+<section class="panel" id="emlScanner">
+
+    <h2>📨 EML Email File Scanner</h2>
+
+    <p class="muted">
+        Upload a raw .eml email file to automatically extract
+        its sender, subject, email body, authentication headers
+        and DKIM selector.
+    </p>
+
+    <input
+        type="file"
+        id="emlFile"
+        accept=".eml,message/rfc822"
+    >
+
+    <div class="actions">
+        <button id="emlButton" onclick="analyzeEml()">
+            Upload & Analyze EML →
+        </button>
+    </div>
+
+    <p id="emlMessage" class="muted"></p>
+
+    <!-- EXTRACTED EMAIL INFORMATION -->
+    <div id="emlResult" class="hidden">
+
+        <h3>Extracted Email Information</h3>
+
+        <div class="quantum-box">
+            <p>
+                <strong>Filename:</strong>
+                <span id="emlFilename"></span>
+            </p>
+
+            <p>
+                <strong>Sender:</strong>
+                <span id="emlSender"></span>
+            </p>
+
+            <p>
+                <strong>Subject:</strong>
+                <span id="emlSubject"></span>
+            </p>
+
+            <p>
+                <strong>DKIM Selector:</strong>
+                <span id="emlSelector"></span>
+            </p>
+        </div>
+
+        <h3>Extracted Authentication Headers</h3>
+        <ul id="emlHeaders"></ul>
+
+        <h3>Extracted Email Body</h3>
+
+        <div class="quantum-box">
+            <p id="emlBody"></p>
+        </div>
+
+    </div>
+
+</section>
+<!-- BULK EMAIL SCANNER -->
+<section id="bulkScanner" class="content-section">
+
+    <h2>📬 Bulk Email Scanner</h2>
+
+    <p class="muted">
+        Upload multiple EML files and analyze their security
+        threats together.
+    </p>
+
+    <div class="settings-card">
+
+        <label for="bulkEmlFiles">Select EML Files</label>
+
+        <input
+            type="file"
+            id="bulkEmlFiles"
+            accept=".eml"
+            multiple
+        >
+
+        <button type="button" id="bulkScanButton">
+            Scan All Emails
+        </button>
+
+        <p id="bulkScanMessage" class="muted"></p>
+
+    </div>
+
+    <div id="bulkScanResults"></div>
+
+</section>
+
+
+<!-- QR CODE SCANNER -->
+<section class="panel" id="qrScanner">
+
+    <h2>▦ QR Code Security Scanner</h2>
+
+    <p class="muted">
+        Upload a QR code image to extract and analyze
+        its embedded URL.
+    </p>
+
+    <input type="file" id="qrFile" accept="image/png,image/jpeg">
+
+    <div class="actions">
+        <button id="qrButton" onclick="analyzeQR()">
+            Scan QR Code →
+        </button>
+    </div>
+
+    <p id="qrMessage" class="muted"></p>
+
+    <div id="qrResult" class="hidden">
+        <h3>Decoded QR Content</h3>
+        <div class="quantum-box">
+            <p id="decodedQR"></p>
+        </div>
+
+        <h3>QR Threat Assessment</h3>
+        <p id="qrRisk"></p>
+
+        <ul id="qrThreats"></ul>
+
+        <h3>Detected URLs</h3>
+        <ul id="qrDetectedUrls"></ul>
+    </div>
+
+</section>
+
+
+<!-- DNS AUTHENTICATION VERIFICATION -->
+<section class="panel" id="dnsScanner">
+
+    <h2>🛡 DNS Authentication Verification</h2>
+
+    <p class="muted">
+        Check whether a sender domain publishes SPF, DKIM
+        and DMARC DNS authentication records.
+    </p>
+
+    <label for="dnsDomain">Sender Domain</label>
+
+    <input
+        type="text"
+        id="dnsDomain"
+        placeholder="Example: google.com"
+    >
+
+    <label for="dkimSelector">DKIM Selector</label>
+
+    <input
+        type="text"
+        id="dkimSelector"
+        placeholder="Enter selector from DKIM-Signature header"
+    >
+
+    <p class="muted">
+        DKIM selector is available in the email's
+        DKIM-Signature header after s=. Leave blank if unknown.
+    </p>
+
+    <div class="actions">
+        <button id="dnsButton" onclick="checkDNSAuthentication()">
+            Verify DNS Records →
+        </button>
+    </div>
+
+    <p id="dnsMessage" class="muted"></p>
+
+    <div id="dnsResults" class="hidden">
+
+        <h3>DNS Verification Results</h3>
+
+        <div class="auth-grid">
+            <div class="stat-card">
+                <span>SPF</span>
+                <h2 id="dnsSPF">-</h2>
+            </div>
+
+            <div class="stat-card">
+                <span>DKIM</span>
+                <h2 id="dnsDKIM">-</h2>
+            </div>
+
+            <div class="stat-card">
+                <span>DMARC</span>
+                <h2 id="dnsDMARC">-</h2>
+            </div>
+        </div>
+
+        <div class="quantum-box">
+            <p>
+                <strong>Important:</strong>
+                These results indicate DNS record availability.
+                They do not prove that a particular email passed
+                SPF, DKIM or DMARC authentication.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- EMAIL THREAT ANALYSIS RESULTS -->
+<section class="panel hidden" id="results">
+
+    <div class="result-heading">
+        <div>
+            <p class="eyebrow">ANALYSIS REPORT</p>
+            <h2>Security Assessment</h2>
+        </div>
+
+        <span id="threatBadge" class="badge">PENDING</span>
+    </div>
+
+    <button type="button" id="reportThreatHistoryBtn">
+        📜 Threat History
+    </button>
+
+    <div class="score-area">
+        <div>
+            <span class="muted">Risk Score</span>
+
+            <div class="score">
+                <span id="riskScore">0</span>
+                <small>/100</small>
+            </div>
+        </div>
+
+        <div class="score-bar">
+            <div id="scoreFill"></div>
+        </div>
+    </div>
+
+    <h3>Detected Threats</h3>
+    <ul id="threatList"></ul>
+
+    <h3>Authentication Analysis</h3>
+    <div id="authResults" class="auth-grid"></div>
+
+    <h3>Detected URLs</h3>
+    <ul id="urlList"></ul>
+
+    <h3>Security Recommendations</h3>
+    <ul id="recommendations"></ul>
+
+</section>
+
+
+<!-- QUANTUM SECURITY -->
+<section id="quantum" class="panel hidden">
+
+    <p class="eyebrow">ADVANCED SECURITY MODULE</p>
+    <h2>⚛ Quantum Security Simulation</h2>
+
+    <p class="muted">
+        Analyze the potential risks associated with traditional
+        cryptographic algorithms in a future quantum-computing environment.
+    </p>
+
+    <div class="quantum-box">
+        <h3>Quantum Risk Assessment</h3>
+        <strong id="quantumStatus">Not analyzed</strong>
+
+        <p id="quantumDetails">
+            Analyze an email to view its quantum security assessment.
+        </p>
+    </div>
+
+</section>
+
+<!-- THREAT HISTORY -->
+ 
+<section id="history" class="content-section">
+
+    <div class="section-header">
+        <h2>Threat History</h2>
+        <p>View your previously analysed emails and security reports.</p>
+    </div>
+<div class="history-summary">
+
+    <div class="history-card">
+        <h3>Total Scans</h3>
+        <p id="totalScans">0</p>
+    </div>
+
+    <div class="history-card">
+        <h3>High Risk Scans</h3>
+        <p id="highRiskScans">0</p>
+    </div>
+
+    <div class="history-card">
+        <h3>Average Risk Score</h3>
+        <p id="averageRisk">0</p>
+    </div>
+
+</div>
+
+    <!-- THREAT ANALYTICS -->
+    <div class="analytics-container">
+
+        <div class="analytics-heading">
+            <h3>Threat Analytics</h3>
+            <p class="muted">Visual overview of your email scan history.</p>
+        </div>
+
+        <div class="analytics-grid">
+
+            <div class="analytics-card">
+                <h4>Threat Distribution</h4>
+                <div class="chart-wrapper">
+                    <canvas id="threatChart"></canvas>
+                </div>
+            </div>
+
+            <div class="analytics-card">
+                <h4>Risk Score Analysis</h4>
+                <div class="chart-wrapper">
+                    <canvas id="riskChart"></canvas>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- HISTORY TABLE -->
+    <div class="history-table-container">
+
+        <h3>Previous Email Analyses</h3>
+
+        <div class="history-toolbar">
+
+            <input
+                type="text"
+                id="historySearch"
+                placeholder="Search by threat level or risk score..."
+            >
+
+            <select id="historyFilter">
+                <option value="ALL">All Threat Levels</option>
+                <option value="LOW">Low Risk</option>
+                <option value="MEDIUM">Medium Risk</option>
+                <option value="HIGH">High Risk</option>
+                <option value="CRITICAL">Critical Risk</option>
+            </select>
+
+            <button id="exportHistory" type="button">
+                Export CSV ↓
+            </button>
+
+        </div>
+
+        <p id="historyMessage">Loading scan history...</p>
+
+        <table class="history-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Risk Score</th>
+                    <th>Threat Level</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody id="historyTableBody"></tbody>
+        </table>
+
+    </div>
+
+    <div id="historyDetails" class="history-details"></div>
+
+</section>
+
+
+<!-- ADMIN DASHBOARD -->
+<section id="admin" class="content-section">
+
+    <div class="section-header">
+        <h2>Admin Dashboard</h2>
+        <p>Manage registered users and their access roles.</p>
+    </div>
+
+    <div class="history-summary">
+
+        <div class="history-card">
+            <h3>Total Registered Users</h3>
+            <p id="adminTotalUsers">0</p>
+        </div>
+
+        <div class="history-card">
+            <h3>Total Scans</h3>
+            <p id="adminTotalScans">0</p>
+        </div>
+
+    </div>
+
+    <div class="history-table-container">
+
+        <h3>Registered Users</h3>
+
+        <p id="adminMessage">Loading users...</p>
+
+        <table class="history-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Total Scans</th>
+                    <th>Manage Role</th>
+                </tr>
+            </thead>
+
+            <tbody id="adminUsersTable"></tbody>
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- SECURITY SETTINGS -->
+<section id="settings" class="content-section">
+
+    <div class="section-header">
+        <h2>Security Settings</h2>
+        <p>Manage your Q-Secure notification preferences.</p>
+    </div>
+
+    <div class="settings-card">
+
+        <h3>Browser Notifications</h3>
+
+        <p>
+            Enable browser notifications to receive alerts
+            when HIGH or CRITICAL threats are detected.
+        </p>
+
+        <button type="button" id="enableNotifications">
+            Enable Notifications
+        </button>
+
+        <p id="notificationStatus">
+            Notifications are not enabled yet.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- DOMAIN MANAGEMENT -->
+<section id="domainManagement" class="content-section">
+
+    <div class="section-header">
+        <h2>Domain Management</h2>
+        <p>Manage domains that you trust or consider suspicious.</p>
+    </div>
+
+    <div class="settings-card">
+
+        <label for="domainInput">Domain Name</label>
+
+        <input
+            type="text"
+            id="domainInput"
+            placeholder="Example: google.com"
+        >
+
+        <label for="domainCategory">Domain Category</label>
+
+        <select id="domainCategory">
+            <option value="TRUSTED">Trusted Domain</option>
+            <option value="SUSPICIOUS">Suspicious Domain</option>
+        </select>
+
+        <button type="button" id="addDomainButton">
+            Add Domain
+        </button>
+
+        <button
+            type="button"
+            id="refreshDomainsButton"
+            class="secondary"
+        >
+            Refresh Domains
+        </button>
+
+        <p id="domainMessage"></p>
+
+    </div>
+
+    <div class="settings-card">
+        <h3>Managed Domains</h3>
+        <div id="domainList"></div>
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer class="dashboard-footer">
+    <p>Q-Secure | Intelligent Email Security and Threat Analysis System</p>
+    <p>Security Monitoring Active</p>
+</footer>
+
+</main>
+
+
+<!-- JAVASCRIPT LIBRARIES -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<!-- APPLICATION JAVASCRIPT -->
+<script src="script.js"></script>
+
+</body>
+</html>
